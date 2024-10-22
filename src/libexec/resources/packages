@@ -48,25 +48,26 @@ function get_alias() {
 
 # Check status and version of specified package using RPM
 function check_rpm() {
-	local IFS name="$1" name2 ver pkg buffer
+	local IFS name="$1" name2 pkg buffer
 
 	# Get alternate name for package on this OS
 	get_alias name2 $name
 
 	#  Get package version
 	for pkg in "${name2[@]}"; do
-		read buffer < <(rpm --query --queryformat '%{VERSION}\n' $pkg)
-		[[ "$buffer" =~ "not installed" ]] && return
-		[[ -z "$ver" ]] && ver="$buffer"
+		read buffer < <(rpm --query --queryformat '%{VERSION}\n' \
+				$pkg 2>/dev/null) || continue
+		if ! [[ "$buffer" =~ "not installed" ]] ; then
+			# Emit result as YAML
+			echo "  $name: $buffer"
+			return
+		fi
 	done
-
-	# Emit result as YAML
-	echo "  $name: $ver"
 }
 
 # Check status and version of specified package using DPKG
 function check_dpkg() {
-	local IFS name="$1" name2 ver pkg buffer
+	local IFS name="$1" name2 pkg buffer
 
 	# Get alternate name for package on this OS
 	get_alias name2 $name
@@ -74,13 +75,13 @@ function check_dpkg() {
 	#  Get package version
 	for pkg in "${name2[@]}"; do
 		read buffer < <(dpkg-query --show --showformat '${Version}\n' \
-					${pkg} 2>/dev/null) || return
-		[[ -z "$buffer" ]] && return
-		[[ -z "$ver" ]] && ver="$buffer"
+					${pkg} 2>/dev/null) || continue
+		if [[ -n "$buffer" ]] ; then
+			# Emit result as YAML
+			echo "  $name: $buffer"
+			return
+		fi
 	done
-
-	# Emit result as YAML
-	echo "  $name: $ver"
 }
 
 function get_state() {
