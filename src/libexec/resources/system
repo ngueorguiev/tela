@@ -325,6 +325,33 @@ function get_os() {
 	done < <($TOOLDIR/../os)
 }
 
+# Get Secure Execution ultravisor information
+function get_ultravisor()
+{
+	local var
+
+	_emit 2 "uv:"
+
+	read -r var < /sys/firmware/uv/prot_virt_guest
+	[[ $var -eq 1 ]] && _emit 3 "se_guest:"
+
+	read -r var < /sys/firmware/uv/prot_virt_host
+	[[ $var -eq 1 ]] && _emit 3 "se_host:"
+
+	if [[ -e "/sys/firmware/uv/query/max_assoc_secrets" ]]; then
+		read -r var < /sys/firmware/uv/query/max_assoc_secrets
+		[[ $var -gt 0 ]] && _emit 3 "association_secrets:"
+	elif [[ -e "/sys/firmware/uv/query/max_secrets" ]]; then
+		read -r var < /sys/firmware/uv/query/max_secrets
+		[[ $var -gt 0 ]] && _emit 3 "association_secrets:"
+	fi
+
+	if [[ -e "/sys/firmware/uv/query/max_retr_secrets" ]]; then
+		read -r var < /sys/firmware/uv/query/max_retr_secrets
+		[[ $var -gt 0 ]] && _emit 3 "retrievable_secrets:"
+	fi
+}
+
 # Get firmware information
 function get_firmware()
 {
@@ -354,6 +381,10 @@ function get_firmware()
 
 		_emit 3 "$type:"
 	done
+
+	if [[ -d "/sys/firmware/uv" ]]; then
+		get_ultravisor
+	fi
 }
 
 # Remove leading space

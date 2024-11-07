@@ -42,6 +42,11 @@ system <name>:
         <mode1>:
         ...
     ri:
+  uv:
+    se_guest:
+    se_host:
+    association_secrets:
+    retrievable_secrets:
   mem:
     swaptotal: <size>
     default_hugepages_total: <num>
@@ -306,6 +311,26 @@ conditions' in [Test resources](../resources.md)).
   - **`system/firmware/dump/eckd:`** *(type: scalar)*
 
     Indicates that the list-directed dump onto ECKD DASD disks is supported.
+
+  - **`system/firmware/uv:`** *(type: scalar)*
+
+    Provides information about the Secure Execution ultravisor.
+
+  - **`system/firmware/uv/se_guest:`** *(type: scalar)*
+
+    Indicates that the system is running as a Secure Execution guest
+
+  - **`system/firmware/uv/se_host:`** *(type: scalar)*
+
+    Indicates that the system is running as a Secure Execution host
+
+  - **`system/firmware/uv/association_secrets:`** *(type: scalar)*
+
+    Indicates that the Secure Execution ultravisor supports association secrets
+
+  - **`system/firmware/uv/retrievable_secrets:`** *(type: scalar)*
+
+    Indicates that the Secure Execution ultravisor supports retrievable secrets
 
   - **`system/mem:``**
 
