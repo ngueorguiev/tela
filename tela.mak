@@ -9,7 +9,7 @@ ifeq ($(origin TESTS),environment)
 endif
 
 # Default settings
-V       := 0
+V       ?= 0
 PRETTY  := 1
 SCOPE   := quick
 LOG     := $(CURDIR)/test.log
