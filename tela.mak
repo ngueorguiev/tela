@@ -94,8 +94,13 @@ ifneq ($(TELA_DEFRECIPES),0)
   include $(TELASRC)/default.mak
 endif
 
-# Must be present for all C test programs
-CFLAGS += -I$(TELAAPI)
+# Avoid "warning: undefined variable 'CFLAGS'" warnings if
+# '--warn-undefined-variables' is used.
+CFLAGS ?=
+ifeq (,$(filter -I$(TELAAPI),$(CFLAGS)))
+  # Must be present for all C test programs
+  CFLAGS += -I$(TELAAPI)
+endif
 
 # Do not pass TESTS= specified on command line to subdirectories to allow
 #   make TESTS=subdir
