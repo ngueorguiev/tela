@@ -26,6 +26,42 @@
 
 DATAFILE="$1"
 
+# Compare versions a and b using comparison operator op (< > <= >= == !=).
+function cmp_ver() {
+	local ver_a="$1" ver_b="$2" op="$3" comp_a comp_b a b i
+
+	# Split OS version
+	IFS=. read -ra comp_a <<<"$ver_a"
+	IFS=. read -ra comp_b <<<"$ver_b"
+
+	# Compare version components
+	for (( i=0; i < ${#comp_a[@]} || i < ${#comp_b[@]}; i++)) ; do
+		a="${comp_a[$i]:-0}"
+		b="${comp_b[$i]:-0}"
+
+		[[ "$a" != "$b" ]] && break
+	done
+
+	# Force base 10 comparison to handle leading zeroes
+	eval "(( 10#$a $op 10#$b ))"
+}
+
+function match_os() {
+	local spec="$1" os ver op="=="
+
+	IFS=- read -r os ver <<<"$spec"
+	if [[ "$ver" =~ \+$ ]] ; then
+		op=">="
+		ver="${ver%+}"
+	fi
+
+	# Match OS ID
+	[[ "$TELA_OS_ID" == "$os" ]] || return 1
+	[[ -z "$ver" ]] && return 0
+
+	cmp_ver "$TELA_OS_VERSION" "$ver" "$op"
+}
+
 # Adjust package name for this OS
 function get_alias() {
 	local IFS var="$1" name="$2" pkg list entry os alt
@@ -36,7 +72,7 @@ function get_alias() {
 			os=${entry%%:*}
 			alt=${entry#*:}
 			alt=${alt//|/ }
-			if [[ "$TELA_OS_ID-$TELA_OS_VERSION" =~ ^$os ]] ; then
+			if match_os "$os" ; then
 				eval "$var=($alt)"
 				return
 			fi
