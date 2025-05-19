@@ -34,8 +34,8 @@
 	if (!fmt)					\
 		str = misc_strdup("(null)");		\
 	else {						\
-		va_start(_args, (fmt));			\
-		_rc = vasprintf(&(str), (fmt), _args);	\
+		va_start(_args, fmt);			\
+		_rc = vasprintf(&(str), fmt, _args);	\
 		va_end(_args);				\
 							\
 		if (_rc == -1)				\
