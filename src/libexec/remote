@@ -82,9 +82,8 @@ function copy_to_remote() {
 	# Add each file to archive without full path
 	for p in "$@" ; do
 		debug "Copy file to remote: $p"
-		p_dir=${p%/*}
-		p_file=${p##*/}
-		[[ "$p_dir" == "$p_file" ]] && p_dir=.
+		p_dir=$(dirname "$p")
+		p_file=$(basename "$p")
 
 		$TAR c -C "$p_dir" "$p_file" --to-stdout --owner=0 --group=0
 	done | $GZIP >"$tarfile"
@@ -109,9 +108,8 @@ function copy_from_remote() {
 	# Create list of tar commands to store files without full path
 	for p in "$@" ; do
 		debug "Copy file from remote: $p"
-		p_dir=${p%/*}
-		p_file=${p##*/}
-		[[ "$p_dir" == "$p_file" ]] && p_dir=.
+		p_dir=$(dirname "$p")
+		p_file=$(basename "$p")
 
 		echo "$TAR c -C \"$p_dir\" \"$p_file\" --to-stdout --owner=0 --group=0" >>$cmdlist
 	done
