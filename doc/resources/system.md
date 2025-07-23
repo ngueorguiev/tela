@@ -47,6 +47,7 @@ system <name>:
     se_host:
     association_secrets:
     retrievable_secrets:
+    keys:
   mem:
     swaptotal: <size>
     default_hugepages_total: <num>
@@ -331,6 +332,10 @@ conditions' in [Test resources](../resources.md)).
   - **`system/firmware/uv/retrievable_secrets:`** *(type: scalar)*
 
     Indicates that the Secure Execution ultravisor supports retrievable secrets
+
+  - **`system/firmware/uv/keys:`** *(type: scalar)*
+
+    Indicates that the Secure Execution ultravisor supports listing installed host-keys
 
   - **`system/mem:``**
 

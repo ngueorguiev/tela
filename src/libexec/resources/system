@@ -350,6 +350,11 @@ function get_ultravisor()
 		read -r var < /sys/firmware/uv/query/max_retr_secrets
 		[[ $var -gt 0 ]] && _emit 3 "retrievable_secrets:"
 	fi
+
+	if [[ -e "/sys/firmware/uv/keys" ]]; then
+		_emit 3 "keys:"
+	fi
+
 }
 
 # Get firmware information
