@@ -19,6 +19,7 @@ DATAFILE="$1"
 LIBEXEC="${TELA_FRAMEWORK:-$(readlink -f $(dirname $0)/../../..)}"/src/libexec
 
 source $LIBEXEC/lib/common.bash || exit 1
+source $LIBEXEC/lib/common-network.bash || exit 1
 
 PCIBUS="/sys/bus/pci/devices"
 PCIDEVS=()
@@ -186,6 +187,7 @@ function check_pci() {
 			if [[ -n "$pnetid" ]] ; then
 				echo "    pnetid: \"$pnetid\""
 			fi
+			check_netdev_ip "$if_name"
 		done
 	fi
 

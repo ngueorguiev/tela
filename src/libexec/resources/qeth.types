@@ -1,7 +1,10 @@
 system */qeth *: object
 system */qeth */layer2/: number
 system */qeth */portno/: number
+system */qeth */netdev *: object
 system */qeth */netdev/speed/: number
+system */qeth */netdev/ipv4/prefix/: number
+system */qeth */netdev/ipv6/prefix/: number
 system */qeth_count_available/: number
 system */qeth_count_total/: number
 

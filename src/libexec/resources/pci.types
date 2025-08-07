@@ -9,5 +9,7 @@ system */pci */uid/: number
 system */pci */vendor/: number
 system */pci */vfn/: number
 system */pci */netdev *: object
+system */pci */netdev/ipv4/prefix/: number
+system */pci */netdev/ipv6/prefix/: number
 system */pci */pnetid *: object
 system */pci */pnetid_count/: number

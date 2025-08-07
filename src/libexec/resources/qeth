@@ -15,6 +15,7 @@ DATAFILE="$1"
 
 LIBEXEC="${TELA_FRAMEWORK:-$(readlink -f $(dirname $0)/../../..)}"/src/libexec
 source $LIBEXEC/lib/common.bash || exit 1
+source $LIBEXEC/lib/common-network.bash || exit 1
 
 QETH="/sys/bus/ccwgroup/drivers/qeth"
 
@@ -53,6 +54,7 @@ function check_qeth() {
 		echo "  netdev:"
 		echo "    if_name: $if_name"
 		check_attr $sysfs/net/$if_name/ speed 4
+		check_netdev_ip "$if_name"
 	fi
 
 	return 0

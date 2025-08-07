@@ -21,6 +21,13 @@ system:
     portno: <port_number>
     netdev:
       if_name: <if_name>
+      ipv4:
+        addr: <ipv4_address>
+        netaddr: <ipv4_network_address>
+        prefix: <ipv4_prefix>
+      ipv6:
+        addr: <ipv6_address>
+        prefix: <ipv6_prefix>
       speed: <line_speed>
 ```
 Additionally the following **system** attributes related to qeth resources
@@ -68,6 +75,11 @@ TELA_SYSTEM_QETH_myqeth_CHPID_mychpid_SYSFS=/sys/devices/css0/chp0.94
 TELA_SYSTEM_QETH_myqeth_CHPID_mychpid_TYPE=0x11
 TELA_SYSTEM_QETH_myqeth_LAYER2=1
 TELA_SYSTEM_QETH_myqeth_NETDEV_IF_NAME=enccw0.0.f500
+TELA_SYSTEM_QETH_myqeth_NETDEV_IPV4_ADDR=10.30.40.79
+TELA_SYSTEM_QETH_myqeth_NETDEV_IPV4_NETADDR=10.30.0.0
+TELA_SYSTEM_QETH_myqeth_NETDEV_IPV4_PREFIX=16
+TELA_SYSTEM_QETH_myqeth_NETDEV_IPV6_ADDR=fe80::78f7:72ff:fedb:52e
+TELA_SYSTEM_QETH_myqeth_NETDEV_IPV6_PREFIX=64
 TELA_SYSTEM_QETH_myqeth_NETDEV_SPEED=1000
 TELA_SYSTEM_QETH_myqeth_ONLINE=1
 TELA_SYSTEM_QETH_myqeth_PORTNO=0
@@ -141,6 +153,38 @@ conditions' in [Test resources](../resources.md)).
 
     Name of the Linux networking interface that is provided by the QETH device,
     e.g. 'eth0'.
+
+  - **`system/qeth/netdev/ipv4/addr:`**  *(type: scalar)*
+
+    IPv4 address of the network interface that is provided by the QETH device,
+    e.g. '10.30.40.79'.
+
+  - **`system/qeth/netdev/ipv4/netaddr:`**  *(type: scalar)*
+
+    The network address from the ipv4 and prefix of the QETH device,
+    e.g. '10.30.32.0' for ipv4 '10.30.40.79/20'.
+
+
+  - **`system/qeth/netdev/ipv4/prefix:`**  *(type: number)*
+
+    The prefix length indicates how many leading bits form the network portion
+    of the address. The remaining bits represent the host portion, used to
+    identify individual interfaces or devices within that network.
+    e.g. '16' for a subnet mask of 255.255.0.0
+
+  - **`system/qeth/netdev/ipv6/addr:`**  *(type: scalar)*
+
+    IPv6 address of the network interface that is provided by the QETH device,
+    e.g. 'fe80::78f7:72ff:fedb:52e'.
+
+  - **`system/qeth/netdev/ipv6/prefix:`**  *(type: number)*
+
+    The prefix length indicates how many leading bits form the network portion
+    of the address. The remaining bits represent the host portion, used to
+    identify individual interfaces or devices within that network.
+    e.g. '64' indicates that the first 64 bits of the 128-bit IPv6 address are
+    used to identify the network, while the remaining 64 bits are used to
+    identify individual hosts within that network
 
   - **`system/qeth/netdev/speed:`**  *(type: number)*
 

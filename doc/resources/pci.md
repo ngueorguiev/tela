@@ -17,6 +17,13 @@ system:
       if_name: <if_name>
       pport: <physical_port>
       pnetid: <pnetid>
+      ipv4:
+        addr: <ipv4_address>
+        netaddr: <ipv4_network_address>
+        prefix: <ipv4_prefix>
+      ipv6:
+        addr: <ipv6_address>
+        prefix: <ipv6_prefix>
     pchid: <physical_channel_id>
     port: <physical_channel_port>
     pft: <pci_function_type>
@@ -81,6 +88,11 @@ TELA_SYSTEM_PCI_mypci_NETDEV_ndev=0
 TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IF_NAME=eno2368
 TELA_SYSTEM_PCI_mypci_NETDEV_ndev_PPORT=0
 TELA_SYSTEM_PCI_mypci_NETDEV_ndev_PNETID=NET1
+TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IPV4_ADDR=10.30.40.24
+TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IPV4_NETADDR=10.30.0.0
+TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IPV4_PREFIX=16
+TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IPV6_ADDR=fe80::80f:8ff:fea0:2953
+TELA_SYSTEM_PCI_mypci_NETDEV_ndev_IPV6_PREFIX=64
 TELA_SYSTEM_PCI_mypci_PCHID=0x01fc
 TELA_SYSTEM_PCI_mypci_PORT=2
 TELA_SYSTEM_PCI_mypci_PFT=0x0a
@@ -147,6 +159,37 @@ conditions' in [Test resources](../resources.md)).
   - **`system/pci/netdev/pnetid:`**  *(type: scalar)*
 
     The PNETID of the physical port.
+
+  - **`system/pci/netdev/ipv4/addr:`**  *(type: scalar)*
+
+    IPv4 address of the network interface that is provided by the PCI device,
+    e.g. '10.30.40.79'.
+
+  - **`system/qeth/netdev/ipv4/netaddr:`**  *(type: scalar)*
+
+    The network address from the ipv4 and prefix of the QETH device,
+    e.g. '10.30.0.0' for ipv4 '10.30.40.79/16'.
+
+  - **`system/pci/netdev/ipv4/prefix:`**  *(type: number)*
+
+    The prefix length indicates how many leading bits form the network portion
+    of the address. The remaining bits represent the host portion, used to
+    identify individual interfaces or devices within that network.
+    e.g. '16' for a subnet mask of 255.255.0.0
+
+  - **`system/pci/netdev/ipv6/addr:`**  *(type: scalar)*
+
+    IPv6 address of the network interface that is provided by the PCI device,
+    e.g. 'fe80::78f7:72ff:fedb:52e'.
+
+  - **`system/pci/netdev/ipv6/prefix:`**  *(type: number)*
+
+    The prefix length indicates how many leading bits form the network portion
+    of the address. The remaining bits represent the host portion, used to
+    identify individual interfaces or devices within that network.
+    e.g. '64' indicates that the first 64 bits of the 128-bit IPv6 address are
+    used to identify the network, while the remaining 64 bits are used to
+    identify individual hosts within that network
 
   - **`system/pci/pchid:`**  *(type: number)*
 
