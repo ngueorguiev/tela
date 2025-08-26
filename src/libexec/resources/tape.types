@@ -1,0 +1,8 @@
+system */tape *: object
+system */tape */medium_state/: number
+system */tape_count_available/: number
+system */tape_count_total/: number
+
+# Copied from chpid resource object
+system */tape */ccw/chpid *: object
+system */tape */ccw/chpid */type/: number

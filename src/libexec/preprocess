@@ -27,6 +27,10 @@
 #       qeth 0.0.0001:
 #         to
 #       chpid 0.10:
+#   - List chpid associated with tape:
+#       tape 0.0.0001:
+#         to
+#       chpid 0.10:
 #
 
 FILENAME=$1
@@ -105,6 +109,12 @@ while read -r line ; do
 		ID="${ID%:}"
 		get_chpids_raw all_chpids "$ID" ${#indent}
 		echo "${indent}qeth $ID:"
+		;;
+	"tape "*)
+		ID=${line#tape }
+		ID="${ID%:}"
+		get_chpids_raw all_chpids "$ID" ${#indent}
+		echo "${indent}tape $ID:"
 		;;
 	*) echo "${indent}${line}" ;;
 	esac
