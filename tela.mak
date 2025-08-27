@@ -104,7 +104,7 @@ endif
 
 # Do not pass TESTS= specified on command line to subdirectories to allow
 #   make TESTS=subdir
-MAKEOVERRIDES :=
+MAKEOVERRIDES := $(filter-out $(subst $() $(),\ ,TESTS=$(TESTS)),$(MAKEOVERRIDES))
 
 # Determine list of test subdirectories. Note: Deferred assignment required
 # here to allow TESTS-assignment to occur after this Makefile
