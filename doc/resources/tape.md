@@ -19,10 +19,10 @@ system:
       online: 0|1
       cutype: <cutype_and_model>
       devtype: <devtype_and_model>
-      n_char_dev:
-        cdev: <chardev_name>
-      r_char_dev:
-        cdev: <chardev_name>
+    n_char_dev:
+      cdev: <chardev_name>
+    r_char_dev:
+      cdev: <chardev_name>
     allow_write: <flag>
 ```
 Additionally the following system attributes related to **tape** resources
@@ -61,8 +61,6 @@ TELA_SYSTEM_TAPE_mytape_MEDIUM_STATE=1
 TELA_SYSTEM_TAPE_mytape_CCW_ONLINE=1
 TELA_SYSTEM_TAPE_mytape_CCW_DEVTYPE=3490/54
 TELA_SYSTEM_TAPE_mytape_CCW_CUTYPE=3490/54
-TELA_SYSTEM_TAPE_mytape_CCW_R_CHAR_DEV_CDEV=rtibm0
-TELA_SYSTEM_TAPE_mytape_CCW_N_CHAR_DEV_CDEV=ntibm0
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid=0.1c
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_SYSFS=/sys/devices/css0/chp0.1c
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_CONFIGURED=1
@@ -72,6 +70,8 @@ TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_ALLOW_OFFLINE=0
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_BUSID=0.1c
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_CHID=0x02c1
 TELA_SYSTEM_TAPE_mytape_CCW_CHPID_mychpid_CHID_EXTERNAL=1
+TELA_SYSTEM_TAPE_mytape_R_CHAR_DEV_CDEV=rtibm0
+TELA_SYSTEM_TAPE_mytape_N_CHAR_DEV_CDEV=ntibm0
 TELA_SYSTEM_TAPE_mytape_ALLOW_WRITE=0
 TELA_SYSTEM_TAPE_COUNT_TOTAL=2
 TELA_SYSTEM_TAPE_COUNT_AVAILABLE=2
@@ -153,15 +153,15 @@ The value of these attributes can be evaluated in test programs
     Device type and model information for the tape device, for example
     '3490/54'.
 
-  - **`system/tape/ccw/n_char_dev/cdev:`**  *(type: scalar)*
+  - **`system/tape/n_char_dev/cdev:`**  *(type: scalar)*
 
-    Non-rewinding character device name. This attribute is only available when the tape device is
-    online.
+    Non-rewinding character device name. This attribute is only available when
+    the tape device is online.
 
-  - **`system/tape/ccw/r_char_dev/cdev:`**  *(type: scalar)*
+  - **`system/tape/r_char_dev/cdev:`**  *(type: scalar)*
 
-    Rewinding character device name. This attribute is only available when the tape device is
-    online.
+    Rewinding character device name. This attribute is only available when the
+    tape device is online.
 
   - **`system/tape/allow_write:`**  *(type: scalar)*
 
