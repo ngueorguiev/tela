@@ -1,0 +1,12 @@
+diff -Naur a/src/libexec/resources/packages b/src/libexec/resources/packages
+--- a/src/libexec/resources/packages	2023-11-15 10:54:13.000000000 +0100
++++ b/src/libexec/resources/packages	2026-02-16 14:02:37.245621141 +0100
+@@ -24,6 +24,8 @@
+ #     perl: 5.8
+ #
+ 
++function die { echo "$1"; exit 1; }
++
+ DATAFILE="$1"
+ 
+ # Adjust package name for this OS
